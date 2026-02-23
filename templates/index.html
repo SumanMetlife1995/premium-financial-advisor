@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Premium Financial Advisor Portal</title>
+<style>
+body { font-family: Arial; background:#f2f4f8; padding:30px;}
+.container { background:white; padding:30px; border-radius:12px; max-width:800px; margin:auto;}
+input, select { width:100%; padding:8px; margin:6px 0;}
+button { padding:10px; width:100%; background:#0d1b2a; color:white; border:none;}
+.result { margin-top:20px; padding:15px; background:#edf2f4; border-radius:8px;}
+.safe { color:green; font-weight:bold;}
+.danger { color:red; font-weight:bold;}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Premium Financial Advisor Dashboard</h2>
+
+<form method="POST">
+
+<h4>Client Information</h4>
+<input type="text" name="name" placeholder="Client Name" required>
+<input type="number" name="age" placeholder="Client Age" required>
+<input type="text" name="spouse" placeholder="Spouse Name">
+<input type="number" name="spouse_age" placeholder="Spouse Age">
+<input type="text" name="child1" placeholder="Child Name">
+<input type="number" name="child1_age" placeholder="Child Age">
+
+<h4>Financial Details</h4>
+<input type="number" name="income" placeholder="Annual Income" required>
+<input type="number" name="expense" placeholder="Annual Expense" required>
+<input type="number" name="savings" placeholder="Current Savings" required>
+<input type="number" name="life_cover" placeholder="Existing Life Cover" required>
+<input type="number" name="goals" placeholder="Future Goals Cost" required>
+
+<select name="risk">
+<option>Low</option>
+<option>Moderate</option>
+<option>High</option>
+</select>
+
+<button type="submit">Generate Premium Plan</button>
+</form>
+
+{% if result %}
+<div class="result">
+<h3>Client: {{ result.name }}</h3>
+<p><strong>Working Years Left:</strong> {{ result.working_years }}</p>
+<p><strong>Annual Surplus:</strong> ₹ {{ result.surplus }}</p>
+
+<hr>
+
+<p><strong>Emergency Fund Required:</strong> ₹ {{ result.emergency_fund }}
+<span class="{{ 'safe' if result.liq_status=='SAFE' else 'danger' }}">
+({{ result.liq_status }})
+</span></p>
+
+<p><strong>Insurance Gap:</strong> ₹ {{ result.insurance_gap }}
+<span class="{{ 'safe' if result.ins_status=='SAFE' else 'danger' }}">
+({{ result.ins_status }})
+</span></p>
+
+<p><strong>Retirement Corpus Estimate:</strong> ₹ {{ result.retirement_corpus }}</p>
+
+<hr>
+
+<p>Liquidity Allocation: ₹ {{ result.liquidity_alloc }}</p>
+<p>Savings Allocation: ₹ {{ result.savings_alloc }}</p>
+<p>Growth Allocation: ₹ {{ result.growth_alloc }}</p>
+
+</div>
+{% endif %}
+
+</div>
+</body>
+</html>
